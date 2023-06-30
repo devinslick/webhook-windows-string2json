@@ -5,6 +5,11 @@ A quick tool to send a json payload to a webhook
 
 The **Webhook Tool** is a command-line application written in Go that sends a JSON payload as a POST request to a webhook destination URL. It accepts key-value pairs as input and converts them into JSON format.
 
+## Why?
+This little tool solves the small annoyance of having to use Powershell on Windows to communicate with webhooks, and getting command line popups when those commands are executed.
+Since this can be compiled as a UI application on Windows it will not show a terminal popup.  It also makes sending JSON much easier by handling the formatting for you.
+
+
 ## Usage
 
 To use the **Webhook Tool**, follow the instructions below:
