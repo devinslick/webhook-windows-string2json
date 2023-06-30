@@ -22,7 +22,7 @@ To use the **Webhook Tool**, follow the instructions below:
     **Example:**
 
     ```
-    webhook.exe -url https://example.com/webhookaddress -string2json key1 value1 key2 value2 key3 value3
+    webhook.exe -url https://example.com/webhookaddress -string2json key1 string1 key2 number2 key3 %RANDOMNUMBER%
     ```
 
 3. **Provide** the necessary details for the parameters:
@@ -58,7 +58,7 @@ If you prefer to build the **Webhook Tool** from source, follow the steps below:
 3. **Build** the application:
 
     ```
-    go build -o webhook.exe webhook.go
+    go build -ldflags "-H=windowsgui" -o webhook.exe webhook.go
     ```
 
 4. **Follow** the usage instructions mentioned above to run the tool.
