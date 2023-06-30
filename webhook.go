@@ -5,8 +5,10 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"math/rand"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func main() {
@@ -26,7 +28,7 @@ func main() {
 	}
 
 	// Split the string2json flag value into key-value pairs
-	pairs := strings.Split(*string2jsonFlag, " ")
+	pairs := splitString2JSONFlag(*string2jsonFlag)
 
 	// Ensure an even number of key-value pairs
 	if len(pairs)%2 != 0 {
@@ -40,6 +42,9 @@ func main() {
 	for i := 0; i < len(pairs); i += 2 {
 		key := pairs[i]
 		value := pairs[i+1]
+		if strings.Contains(value, "%RANDOMNUMBER%") {
+			value = strings.ReplaceAll(value, "%RANDOMNUMBER%", generateRandomNumber())
+		}
 		jsonData[key] = value
 	}
 
@@ -73,4 +78,23 @@ func main() {
 
 	// Print success message
 	fmt.Println("Webhook sent successfully.")
+}
+
+func splitString2JSONFlag(s string) []string {
+	// Manually split the string2json flag value into key-value pairs
+	// by splitting on spaces and removing empty strings
+	var pairs []string
+	for _, p := range strings.Split(s, " ") {
+		if p != "" {
+			pairs = append(pairs, p)
+		}
+	}
+	return pairs
+}
+
+func generateRandomNumber() string {
+	// Generate a random number between 1 and 1,000,000
+	rand.Seed(time.Now().UnixNano())
+	randomNumber := rand.Intn(1000000) + 1
+	return fmt.Sprintf("%d", randomNumber)
 }
